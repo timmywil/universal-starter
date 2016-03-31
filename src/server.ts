@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
+
 // Angular 2
 import 'angular2-universal-preview/polyfills';
 import {
@@ -20,6 +22,7 @@ import {Html} from './server-only-app/html.component';
 let app = express();
 let root = path.join(path.resolve(__dirname, '..'));
 
+app.use(compression());
 enableProdMode();
 
 // Express View
@@ -28,7 +31,6 @@ app.set('views', __dirname);
 app.set('view engine', 'html');
 
 app.use(bodyParser.json());
-
 
 function ngApp(req, res) {
   let baseUrl = '/';

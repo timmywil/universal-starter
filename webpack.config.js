@@ -10,10 +10,7 @@ var commonConfig = {
       // TypeScript
       { test: /\.ts$/, loader: 'ts-loader' }
     ]
-  },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(true)
-  ]
+  }
 };
 
 
@@ -23,6 +20,12 @@ var clientConfig = {
   output: {
     path: path.join(__dirname, 'dist', 'client')
   },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(true),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: false
+    })
+  ],
   node: {
     global: true,
     __dirname: true,
@@ -40,6 +43,9 @@ var serverConfig = {
     path: path.join(__dirname, 'dist', 'server')
   },
   externals: checkNodeImport,
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(true)
+  ],
   node: {
     global: true,
     __dirname: true,
